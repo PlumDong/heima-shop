@@ -42,10 +42,36 @@ const http = <T>(options: UniApp.RequestOptions) => {
     uni.request({
       ...options,
       success(result) {
-        resolve(result.data as Date<T>)
+        // 成功
+        if (result.statusCode >= 200 && result.statusCode < 300) {
+          resolve(result.data as Date<T>)
+        }
+        // 401 错误,清理用户信息，跳转登录页
+        else if (result.statusCode == 401) {
+          const memberStore = useMemberStore()
+          memberStore.clearProfile()
+          uni.navigateTo({ url: '/pages/login/login' }).then((r) => {})
+          reject(result)
+        }
+        // 通用错误
+        else {
+          uni.showToast({
+            icon: 'none',
+            title: (result.data as Date<T>).msg || '请求错误！',
+          })
+          reject(result)
+        }
+      },
+      fail(result) {
+        // 网络错误
+        uni.showToast({
+          icon: 'none',
+          title: '网络错误！换个网络试试！',
+        })
+        reject(result)
       },
     })
   })
 }
 
-export default http
+export { http }

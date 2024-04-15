@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useMemberStore } from '@/stores'
-import http from '@/utils/http'
+import { http } from '@/utils/http'
 
 const memberStore = useMemberStore()
 let profile = memberStore.getProfile()
