@@ -30,6 +30,8 @@ export type HotItem = {
   id: string
   /** 图片集合[ 图片路径 ] */
   pictures: string[]
+  /** 图片集合[ 图片路径 ] */
+  picture: string
   /** 跳转地址 */
   target: string
   /** 标题 */

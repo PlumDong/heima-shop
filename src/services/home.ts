@@ -32,7 +32,7 @@ export const getHomeCategoryAPI = () => {
 export const getHomeHotAPI = () => {
   return http<HotItem[]>({
     method: 'GET',
-    url: '/home/hot/mutli',
+    url: '/home/hot',
   })
 }
 
